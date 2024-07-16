@@ -11,7 +11,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--root",
         help="Root dir of your project",
-
+        type=str,
     )
 
 
