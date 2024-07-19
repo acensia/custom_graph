@@ -8,7 +8,7 @@ from .init_content import INIT_YAML, INIT_DOTENV ## relative import
 from .graph.extractors.graph.prompts import GRAPH_EXTRACTION_PROMPT
 from .graph.extractors.community.prompts import COMMUNITY_REPORT_PROMPT
 from .progress import ProgressReporter ## relative import
-from .run import run_ppl_with_config ## relative import
+from .run import _run_pipeline ## relative import
 
 def index_cli(
         init:bool,
@@ -35,23 +35,12 @@ def index_cli(
     pipeline_emit = ""
     encountered_errors = False
     
-    def _run_workflow_async()->None:
-        import signal
-
-        def handle_signal(signum, ):
-            prg_rep.info(f"Received signal {signum}, exiting...")
-            
-        # Register signal handlers for SIGINT and SIGHIP
-        signal.signal(signal.SIGINT, handle_signal) ## SIGINT : KeyboardInterrupt
-
-        # if sys.platform != "win32":
-        #     signal.signal(signal.SIGHUP, handle_signal) ## SIGHUP : %didn't get it
-
-        async def execute():
-            nonlocal encountered_errors
-            async for output in run_ppl_with_config():
-                if output.errors and len(output.errors) > 0 :
-                    encountered_errors = True
+    def _run_workflow(
+            prg_rep : ProgressReporter | None
+    ):
+        
+        for output in _run_pipeline(prg_rep=prg_rep):
+            pass
 
 
     # input_table()

@@ -1,6 +1,6 @@
 from .progress import ProgressReporter
 
-def _run_pipeline(
+def run_ppl_with_config(
         prg_rep = ProgressReporter | None
 ):
     def create_storage():
