@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 
 
-from . import PplConfig ## relative import
+from .config import PplConfig ## relative import
 from .init_content import INIT_YAML, INIT_DOTENV ## relative import
 from .graph.extractors.graph.prompts import GRAPH_EXTRACTION_PROMPT
 from .graph.extractors.community.prompts import COMMUNITY_REPORT_PROMPT
@@ -52,6 +52,7 @@ def index_cli(
             async for output in run_ppl_with_config():
                 if output.errors and len(output.errors) > 0 :
                     encountered_errors = True
+                    prg_rep.error(output.workflow)
 
 
     # input_table()
