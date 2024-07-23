@@ -49,10 +49,18 @@ def index_cli(
 
         async def execute():
             nonlocal encountered_errors
-            async for output in run_ppl_with_config():
+            async for output in run_ppl_with_config(
+                ppl_config,
+                run_id=run_id,
+
+            ):
                 if output.errors and len(output.errors) > 0 :
                     encountered_errors = True
                     prg_rep.error(output.workflow)
+                else:
+                    prg_rep.success(output.workflow)
+                
+                prg_rep.info(str(output.result))
 
 
     # input_table()
