@@ -1,3 +1,6 @@
+import time
+
+
 from .progress import ProgressReporter
 from .typing import PplRunResult
 
@@ -19,6 +22,23 @@ def run_ppl_with_config(
         pass
     def create_input():
         pass
+
+    def create_postprocess_steps(
+            
+    ):
+        return config.post_process if config is not None else None
     
+    prg_rep = prg_rep or NullPrgRep()
     storage = create_storage()
+
+    async for table in run_ppl(
+
+    ):
+        yield table
+
+async def run_ppl(
+        
+)->AsyncIterable[PplRunResult]:
+    
+    start_time = time.time()
     
